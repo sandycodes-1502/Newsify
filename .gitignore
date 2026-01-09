@@ -1,0 +1,41 @@
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+
+# Android build outputs
+.gradle/
+build/
+out/
+
+# Local config files
+local.properties
+
+# Android logs & temp
+*.log
+
+# NDK / CMake (Android)
+.externalNativeBuild/
+.cxx/
+
+# Keystore (VERY IMPORTANT)
+*.jks
+*.keystore
+
+# Emulator & device
+captures/
+
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
