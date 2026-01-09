@@ -7,9 +7,6 @@
 build/
 out/
 
-# Local config files
-local.properties
-
 # Android logs & temp
 *.log
 
