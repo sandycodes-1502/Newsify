@@ -3,32 +3,32 @@ package com.sandycodes.newsify.activities
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
+import androidx.databinding.DataBindingUtil
 import com.sandycodes.newsify.R
-import com.sandycodes.newsify.data.repository.NewsRepository
-import kotlinx.coroutines.launch
+import com.sandycodes.newsify.databinding.ActivityMainBinding
+import com.sandycodes.newsify.fragments.DashboardFragment
 
 class MainActivity : AppCompatActivity() {
+    lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i("CRASH_CHECK", "MainActivity started")
+//        setContentView(R.layout.activity_main)
 
-        setContentView(R.layout.activity_main)
-        lifecycleScope.launch {
-            try {
-                val articles = NewsRepository().getHeadlines()
-                Log.d("TEST", "Articles fetched: ${articles.size}")
-                Log.d("TEST", "First title: ${articles.firstOrNull()?.title}")
-            } catch (e: Exception) {
-                Log.e("TEST", "Error: ${e.message}")
-            }
+//        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        Log.i("CRASH_CHECK", "Binding inflated")
+
+        if (savedInstanceState == null){
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, DashboardFragment())
+                .commit()
+
+            Log.i("CRASH_CHECK", "Loading fragment")
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
+
 }

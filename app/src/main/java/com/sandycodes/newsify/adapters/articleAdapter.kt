@@ -1,22 +1,28 @@
 package com.sandycodes.newsify.adapters
 
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sandycodes.newsify.data.models.Article
+import com.sandycodes.newsify.databinding.LayoutHeadlineBinding
 
-class headlinesAdapter(val headlines : List<Article>) : RecyclerView.Adapter<art>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): artic {
-        TODO("Not yet implemented")
+class articleAdapter(val headlines : List<Article>) : RecyclerView.Adapter<articleAdapter.ViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        Log.i("CRASH_CHECK", "Items count: ${headlines.size}")
+        return ViewHolder(LayoutHeadlineBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun onBindViewHolder(holder: artic, position: Int) {
-        TODO("Not yet implemented")
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(headlines.get(position))
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = headlines.size
 
-    inner class ViewHOlder(val  layoutArticleBinding: layout_headline) : RecyclerView.ViewHolder(layoutArticleBinding.root)
+    inner class ViewHolder(val  layoutHeadlineBinding: LayoutHeadlineBinding) : RecyclerView.ViewHolder(layoutHeadlineBinding.root){
+        fun bind(article: Article){
+            layoutHeadlineBinding.article = article
+        }
+    }
 
 }

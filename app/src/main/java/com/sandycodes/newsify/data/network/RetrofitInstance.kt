@@ -7,11 +7,11 @@ object RetrofitInstance {
 
     private const val BASE_URL = "https://newsapi.org/v2/"
 
-    val api: NewsApi by lazy {
+    val api: NewsApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(NewsApi::class.java)
+            .create(NewsApiService::class.java)
     }
 }
