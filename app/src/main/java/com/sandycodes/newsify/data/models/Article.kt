@@ -3,6 +3,7 @@ package com.sandycodes.newsify.data.models
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Article(
     val source: Source?,
     val author: String?,
@@ -13,4 +14,4 @@ data class Article(
     val publishedAt: String?,
     val content: String?,
     val totalResult: Int?
-)
+): Parcelable

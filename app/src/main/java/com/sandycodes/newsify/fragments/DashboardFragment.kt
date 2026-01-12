@@ -52,7 +52,14 @@ class DashboardFragment : Fragment() {
 
                 withContext(Dispatchers.Main) {
                     headlines_view.layoutManager = LinearLayoutManager(requireContext())
-                    headlines_view.adapter = articleAdapter(ArrayList(headlines))
+                    headlines_view.adapter = articleAdapter(ArrayList(headlines)) { article ->
+                        val fragment = NewsDetailsFragment.newInstance(article)
+
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainer, fragment)
+                            .addToBackStack(null)
+                            .commit()
+                    }
 
                     Log.i("CRASH_CHECK", "Headlines fetched")
                     Log.i("CRASH_CHECK", "Headlines count: ${headlines.size}")
