@@ -10,80 +10,10 @@
             type="com.sandycodes.newsify.data.models.Article" />
     </data>
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" >-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-<!--        <androidx.appcompat.widget.AppCompatTextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@{NewsArticle.title}"-->
-<!--            android:textSize="20sp"-->
-<!--            android:id="@+id/title"-->
-<!--            android:textColor="@color/black"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/PublishedAt"-->
-<!--            android:layout_margin="10dp"/>-->
-
-<!--        <androidx.appcompat.widget.AppCompatTextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@{NewsArticle.description}"-->
-<!--            android:textSize="15sp"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:id="@+id/description"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/PublishedAt"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/content"-->
-<!--            android:layout_marginLeft="10dp"-->
-<!--            android:layout_marginRight="10dp"-->
-<!--            android:layout_marginTop="8dp"/>-->
-
-<!--        <androidx.appcompat.widget.AppCompatTextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/PublishedAt"-->
-<!--            android:text="@{NewsArticle.publishedAt}"-->
-<!--            android:textColor="@color/black"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/title"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/description"-->
-<!--            android:layout_marginLeft="10dp"-->
-<!--            android:layout_marginRight="10dp"-->
-<!--            android:layout_marginTop="5dp"/>-->
-
-<!--        <androidx.appcompat.widget.AppCompatTextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/content"-->
-<!--            android:text="@{NewsArticle.content}"-->
-<!--            android:textColor="@color/black"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/description"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/redirectURL"-->
-<!--            android:layout_marginLeft="10dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_marginRight="10dp"/>-->
-
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/redirectURL"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="10dp"-->
-<!--            android:src="@drawable/outline_arrow_outward"-->
-<!--            app:flow_horizontalAlign="end"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.884"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/content"-->
-<!--            app:maxImageSize="30dp" />-->
-<!--        -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -92,27 +22,36 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Title"
-                android:textSize="20sp"
+                android:text="@{NewsArticle.title}"
+                android:textSize="30sp"
                 android:id="@+id/title"
                 android:textColor="@color/black"
                 android:layout_margin="10dp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:id="@+id/newsImage"
+                android:layout_margin="15dp"
+                android:layout_gravity="center" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/PublishedAt"
-                android:text="Published At"
+                android:text="@{NewsArticle.publishedAt}"
                 android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:maxHeight="50dp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Description"
-                android:textSize="15sp"
+                android:text="@{NewsArticle.description}"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:id="@+id/description"
                 android:layout_marginLeft="10dp"
@@ -123,24 +62,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/content"
-                android:text="Content"
+                android:text="@{NewsArticle.content}"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"/>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/redirectURL"
-                android:layout_width="wrap_content"
+            <Button
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:src="@drawable/outline_arrow_outward"
-                android:layout_gravity="bottom|end"
-                app:maxImageSize="30dp" />
+                android:id="@+id/redirectURL"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="Read More"
+                android:textSize="15sp"/>
 
         </LinearLayout>
 
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+    </ScrollView>
+
+
 </layout>

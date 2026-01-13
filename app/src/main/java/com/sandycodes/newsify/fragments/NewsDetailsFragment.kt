@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.sandycodes.newsify.R
+import android.widget.Toast
 import com.sandycodes.newsify.data.models.Article
 import com.sandycodes.newsify.databinding.FragmentNewsDetailsBinding
+import com.squareup.picasso.Picasso
 
-class NewsDetailsFragment : Fragment() {
+class NewsDetailsFragment() : Fragment() {
     private lateinit var binding: FragmentNewsDetailsBinding
 
     companion object {
@@ -40,19 +41,24 @@ class NewsDetailsFragment : Fragment() {
         val article = requireArguments().getParcelable<Article>(ARG_ARTICLE)
         Log.i("CRASH_TEST", "Article: $article")
 
-        binding.title.text = article?.title ?: "No title"
-        binding.description.text = article?.description ?: "No description"
-        binding.content.text = article?.content ?: "No content preview available"
-        binding.PublishedAt.text = article?.publishedAt ?: "No date"
-        Log.i("CRASH_TEST", "Title set: ${binding.title.text}")
-        Log.i("CRASH_TEST", "Desc set: ${binding.description.text}")
-        Log.i("CRASH_TEST", "Content set: ${binding.content.text}")
-        Log.i("CRASH_TEST", "Date set: ${binding.PublishedAt.text}")
+        binding.newsArticle = article
 
+//        binding.title.text = article?.title ?: "No title"
+//        binding.description.text = article?.description ?: "No description"
+//        binding.content.text = article?.content ?: "No content preview available"
+//        binding.PublishedAt.text = article?.publishedAt ?: "No date"
+        Log.i("CRASH_TEST", "Title set: ${binding.title}")
+        Log.i("CRASH_TEST", "Desc set: ${binding.description}")
+        Log.i("CRASH_TEST", "Content set: ${binding.content}")
+        Log.i("CRASH_TEST", "Date set: ${binding.PublishedAt}")
+
+        Picasso.get().load(article?.urlToImage).into(binding.newsImage)
+        Log.i("CRASH_TEST", "Image set: ${binding.newsImage}")
 
         binding.redirectURL.setOnClickListener {
             val url = article?.url
             if (url != null) {
+                Toast.makeText(requireContext(), "Redirecting to: ${article.source?.name}", Toast.LENGTH_SHORT).show()
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
             }
