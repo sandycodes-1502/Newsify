@@ -124,7 +124,7 @@ class DashboardFragment : Fragment() {
                 searchJob?.cancel()
 
                 searchJob = CoroutineScope(Dispatchers.Main).launch {
-                    delay(500)
+                    delay(750)
                 }
 
                 if (newText.isNullOrEmpty()) {
