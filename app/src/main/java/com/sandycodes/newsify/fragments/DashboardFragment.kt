@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sandycodes.newsify.R
@@ -23,6 +24,9 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
+private const val TAG = "Dashboard_Fragment"
+
 class DashboardFragment : Fragment() {
 
     lateinit var binding: FragmentDashboardBinding
@@ -34,11 +38,13 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        Log.i(TAG, "Binding Created")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.i(TAG, "Dashboard Fragment Created")
 
         newsView = binding.newsView
 
@@ -47,6 +53,8 @@ class DashboardFragment : Fragment() {
             .baseUrl("https://newsapi.org/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+        Log.i(TAG, "Retrofit Created")
 
         val newsApi = retrofit.create(NewsApiService::class.java)
 
@@ -63,12 +71,18 @@ class DashboardFragment : Fragment() {
                 val results = response.articles
 
                 withContext(Dispatchers.Main) {
-//                    newsView.adapter = articleAdapter(results) { article ->
-//                        NewsDetailsFragment.newInstance(results)
-//                }
                     adapter.updateData(results)
+                    Log.i("CRASH_TEST", "Articles Fetched: ${results.size}")
                 }
             }
+        }
+
+        binding.favBtn.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, FavouritesFragment())
+                .addToBackStack(null)
+                .commit()
+            Log.i(TAG, "Favourites Fragment Opened")
         }
 
         fun fetchTopHeadlines() {
@@ -89,33 +103,11 @@ class DashboardFragment : Fragment() {
 
         fetchTopHeadlines()
 
-
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                val response = newsApi.getTopHeadlines()
-//                val headlines = response.articles
-//
-//                withContext(Dispatchers.Main) {
-//                    newsView.layoutManager = LinearLayoutManager(requireContext())
-//                    newsView.adapter = articleAdapter(ArrayList(headlines)) { article ->
-//                        val fragment = NewsDetailsFragment.newInstance(article)
-//
-//                        parentFragmentManager.beginTransaction()
-//                            .replace(R.id.fragmentContainer, fragment)
-//                            .addToBackStack(null)
-//                            .commit()
-//                    }
-//                }
-//            } catch (e: Exception) {
-//                Log.e("CRASH_CHECK", "API Error: ${e.message}")
-//                e.printStackTrace()
-//            }
-//        }
-
         binding.newsSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
                     fetchSearchResults(it)
+                    Log.i(TAG, "Search Results Fetched")
                 }
                 return true
             }
@@ -129,8 +121,10 @@ class DashboardFragment : Fragment() {
 
                 if (newText.isNullOrEmpty()) {
                     fetchTopHeadlines()
+                    Log.i("CRASH_TEST", "Top Headlines Fetched")
                 } else {
                     fetchSearchResults(newText)
+                    Log.i(TAG, "Search Results Fetched")
                 }
                 return true
             }
@@ -143,6 +137,13 @@ class DashboardFragment : Fragment() {
             .replace(R.id.fragmentContainer, fragment)
             .addToBackStack(null)
             .commit()
+        Log.i(TAG, "News Details Fragment Opened")
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(TAG, "Dashboard Fragment Destroyed")
     }
 
 }
