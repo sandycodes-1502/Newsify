@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
+    id("kotlin-kapt")
 
 }
 
@@ -73,6 +74,9 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
 
+    val room_version = "2.8.4"
+    implementation("androidx.room:room-runtime:${room_version}")
+    kapt("androidx.room:room-compiler:${room_version}")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 }
