@@ -18,6 +18,7 @@ class favouritesAdapter (
         list.clear()
         list.addAll(newList)
         notifyDataSetChanged()
+//        notifyItemRangeChanged(0, list.size)
     }
 
     override fun onCreateViewHolder(

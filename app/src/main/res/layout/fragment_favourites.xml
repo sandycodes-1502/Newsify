@@ -14,7 +14,6 @@
             android:text="Your Favourites"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:padding="16dp"
             android:layout_margin="10dp"/>
 
         <androidx.recyclerview.widget.RecyclerView

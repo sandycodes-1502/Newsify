@@ -35,6 +35,7 @@ class FavouritesFragment : Fragment() {
     ): View {
         binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         Log.i(TAG, "Binding Created")
+//        loadFavourites()
         return binding.root
     }
 
@@ -52,7 +53,10 @@ class FavouritesFragment : Fragment() {
 
         binding.favouritesView.layoutManager = LinearLayoutManager(requireContext())
         binding.favouritesView.adapter = adapter
-        binding.favouritesView.setHasFixedSize(true)
+//        binding.favouritesView.setHasFixedSize(true)
+//        binding.favouritesView.post {
+//            loadFavourites()
+//        }
 
         loadFavourites()
 
@@ -64,7 +68,7 @@ class FavouritesFragment : Fragment() {
         Log.i(TAG, "Favourites Resumed")
     }
 
-    private fun loadFavourites() {6
+    private fun loadFavourites() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             Log.i(TAG, "Load Favourites Called")
             try {

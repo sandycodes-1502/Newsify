@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -97,6 +98,11 @@ class DashboardFragment : Fragment() {
                     }
                 } catch (e: Exception) {
                     Log.e("CRASH_CHECK", "API Error: ${e.message}")
+                    if (e.message == "HTTP 429") {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(requireContext(), "Too Many Requests, API quota exhausted", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         }
