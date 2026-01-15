@@ -98,9 +98,29 @@ class DashboardFragment : Fragment() {
                     }
                 } catch (e: Exception) {
                     Log.e("CRASH_CHECK", "API Error: ${e.message}")
-                    if (e.message == "HTTP 429") {
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), "Too Many Requests, API quota exhausted", Toast.LENGTH_SHORT).show()
+                    when (e.message) {
+                        "HTTP 429" -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Too Many Requests, API quota exhausted",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                        "HTTP 500" -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(requireContext(), "Internal Server Error", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        "HTTP 200" -> {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(requireContext(), "API Call Success", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        "HTTP 400" -> {
+                            withContext(Dispatchers.Main) {}
+                            Toast.makeText(requireContext(), "Bad Request", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
