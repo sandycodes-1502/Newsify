@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         Log.i("CRASH_CHECK", "Binding inflated")
 
         if (savedInstanceState == null){
+            Log.i("CRASH_CHECK", "SavedState = $savedInstanceState")
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, DashboardFragment())
                 .commit()
